@@ -11,7 +11,7 @@ def commit(message): #-c
 	subprocess.run("git status", shell=True)
 	# pdb.set_trace()
 	if message == []:
-		message = input("what is the commit message(make sure to use quotes)? ")
+		message = input("what is the commit message(make sure NOT to use quotes)? ")
 	else:
 		message == sys.argv[2]
 	subprocess.run('git commit -m"{}"'.format(message), shell=True)
@@ -41,15 +41,15 @@ def help():
 # ---------------------------------------------------------------- #
 # ---------------------------------------------------------------- #
 
-def quick_deploy(): #-qd
-	commit()
+def quick_deploy(message): #-qd
+	commit(message = message)
 	print("changes have been commited")
 	push_git()
 	print("changes pushed to git")
 	push_heroku()
 	print("changes deployed to heroku")
 
-def pull_and_deploy(): #-pad
+def pull_and_deploy(message): #-pad
 	pull()
 	quick_deploy()
 
@@ -72,5 +72,5 @@ for arg in sys.argv[2:len(sys.argv)-1]:
 	arguments.append(arg)
 
 if __name__ == "__main__":
-	func_args[sys.argv[1]](arguments)
+		func_args[sys.argv[1]](sys.argv[2:len(sys.argv)-1])
 
