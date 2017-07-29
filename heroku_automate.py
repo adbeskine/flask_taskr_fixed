@@ -44,16 +44,16 @@ def help():
 def quick_deploy(): #-qd
 	commit()
 	print("******************\n\n")
-	print("changes have been commited")
-	print("\n\n******************")
+	print("changes have been commited\n\n")
+	print("******************")
 	push_git()
 	print("******************\n\n")
-	print("changes pushed to git")
-	print("******************\n\n")
+	print("changes pushed to git\n\n")
+	print("******************")
 	push_heroku()
 	print("******************\n\n")
-	print("changes deployed to heroku")
-	print("******************\n\n")
+	print("changes deployed to heroku\n\n")
+	print("******************")
 
 def pull_and_deploy(): #-pad
 	pull()
