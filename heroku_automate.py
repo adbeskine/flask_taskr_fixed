@@ -9,7 +9,7 @@ import pdb
 def commit(message): #-c
 	subprocess.run("git add -A", shell=True)
 	subprocess.run("git status", shell=True)
-	pdb.set_trace()
+	# pdb.set_trace()
 	if message == []:
 		message = input("what is the commit message(make sure to use quotes)? ")
 	else:
