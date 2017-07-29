@@ -6,14 +6,14 @@ import pdb
 ####HELPER METHODS ####
 #######################
 
-def commit(message): #-c
+def commit(): #-c
 	subprocess.run("git add -A", shell=True)
 	subprocess.run("git status", shell=True)
 	# pdb.set_trace()
-	if message == []:
+	if len(sys.argv) == 2:
 		message = input("what is the commit message(make sure NOT to use quotes)? ")
 	else:
-		message == sys.argv[2]
+		message = sys.argv[2]
 	subprocess.run('git commit -m"{}"'.format(message), shell=True)
 
 def push_git(): #-g
@@ -41,15 +41,21 @@ def help():
 # ---------------------------------------------------------------- #
 # ---------------------------------------------------------------- #
 
-def quick_deploy(message): #-qd
-	commit(message = message)
+def quick_deploy(): #-qd
+	commit()
+	print("******************\n\n")
 	print("changes have been commited")
+	print("\n\n******************")
 	push_git()
+	print("******************\n\n")
 	print("changes pushed to git")
+	print("******************\n\n")
 	push_heroku()
+	print("******************\n\n")
 	print("changes deployed to heroku")
+	print("******************\n\n")
 
-def pull_and_deploy(message): #-pad
+def pull_and_deploy(): #-pad
 	pull()
 	quick_deploy()
 
@@ -67,10 +73,12 @@ def heroku_tests(): #-ht
 
 func_args = {"-c":commit, "-g":push_git, "-h":push_heroku, "-help":help, "-qd": quick_deploy, "-pad":pull_and_deploy, "-hr":heroku_rollback, "-ht":heroku_tests}#
 
-arguments = []
-for arg in sys.argv[2:len(sys.argv)-1]:
-	arguments.append(arg)
+
 
 if __name__ == "__main__":
-		func_args[sys.argv[1]](sys.argv[2:len(sys.argv)-1])
+
+	# if len(sys.argv) == 2:
+		# func_args[sys.argv[1]]()
+	# else:
+		func_args[sys.argv[1]]()
 
