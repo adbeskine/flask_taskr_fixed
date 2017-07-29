@@ -1,6 +1,6 @@
 import sys
 import subprocess
-
+import pdb
 
 #######################
 ####HELPER METHODS ####
@@ -9,7 +9,8 @@ import subprocess
 def commit(message): #-c
 	subprocess.run("git add -A", shell=True)
 	subprocess.run("git status", shell=True)
-	if message == None:
+	pdb.set_trace()
+	if message == []:
 		message = input("what is the commit message(make sure to use quotes)? ")
 	else:
 		message == sys.argv[2]
@@ -64,11 +65,12 @@ def heroku_tests(): #-ht
 ####func args####
 #################
 
-func_args = {"-c":commit, "-g":push_git, "-h":push_heroku, "-help":help, "-qd": quick_deploy, "-pad":pull_and_deploy, "-hr":heroku_rollback, "-ht":heroku_tests}
+func_args = {"-c":commit, "-g":push_git, "-h":push_heroku, "-help":help, "-qd": quick_deploy, "-pad":pull_and_deploy, "-hr":heroku_rollback, "-ht":heroku_tests}#
+
+arguments = []
+for arg in sys.argv[2:len(sys.argv)-1]:
+	arguments.append(arg)
 
 if __name__ == "__main__":
-	if len(sys.argv) == 2:
-		func_args[sys.argv[1]]()
-	elif len(sys.argv) ==3:
-		func_args[sys.argv[1]](sys.argv[2])
+	func_args[sys.argv[1]](arguments)
 
