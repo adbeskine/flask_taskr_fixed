@@ -13,11 +13,11 @@ bcrypt = Bcrypt(app)
 
 from Flask_taskr.users.views import users_blueprint
 from Flask_taskr.tasks.views import tasks_blueprint
-from Flask_taskr.api.views import api_blueprint
+from Flask_taskr.api.views import api_bp
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(tasks_blueprint)
-app.register_blueprint(api_blueprint)
+app.register_blueprint(api_bp)
 
 @app.errorhandler(404)
 def not_found(error):
