@@ -4,20 +4,25 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import datetime
+from flask_restful import Api
+from Flask_taskr.api.views import get_all_tasks, get_individual_task
 
 app = Flask(__name__)
 app.config.from_pyfile('_config.py')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+api = Api(app)
 
+api.add_resource(get_all_tasks, '/api/v1/tasks/')
+api.add_resource(get_individual_task, '/api/v1/tasks/<int:task_id>')
 
 from Flask_taskr.users.views import users_blueprint
 from Flask_taskr.tasks.views import tasks_blueprint
-from Flask_taskr.api.views import api_blueprint
+# from Flask_taskr.api.views import api_blueprint
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(tasks_blueprint)
-app.register_blueprint(api_blueprint)
+# app.register_blueprint(api_blueprint)
 
 @app.errorhandler(404)
 def not_found(error):
