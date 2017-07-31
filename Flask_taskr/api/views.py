@@ -1,18 +1,15 @@
 from functools import wraps
 from flask import flash, redirect, jsonify, \
     session, url_for, Blueprint, make_response
-from flask_restful import Api, Resource, abort
+from flask_restful import Api, Resource, abort, url_for
 
-from Flask_taskr import db
+from Flask_taskr import db, app
 from Flask_taskr.models import Task
 
 
 ################
 #### config ####
 ################
-
-api_bp = Blueprint('api', __name__)
-api = Api(api_bp)
 
 
 ##########################
@@ -47,7 +44,7 @@ def closed_tasks():
 # @api_blueprint.route('/api/v1/tasks/')
 
 class api_list_all_tasks(Resource):
-    def api_tasks():
+    def get(self):
         results = db.session.query(Task).limit(10).offset(0).all()
         json_results = []
         for result in results:
@@ -66,7 +63,7 @@ class api_list_all_tasks(Resource):
 # @api_blueprint.route('/api/v1/tasks/<int:task_id>')
 
 class api_list_individual_task(Resource):
-    def task(task_id):
+    def get(self, task_id):
         result = db.session.query(Task).filter_by(task_id=task_id).first()
         if result:
             json_result = {
@@ -90,5 +87,8 @@ class api_list_individual_task(Resource):
  # api routes #
 ################
 
-api.add_resource(api_list_all_tasks, 'api/v1/tasks')
+api_bp = Blueprint('api', __name__)
+api = Api(api_bp)
+
+api.add_resource(api_list_all_tasks, '/api/v1/tasks')
 api.add_resource(api_list_individual_task, '/api/v1/tasks/<int:task_id>')
