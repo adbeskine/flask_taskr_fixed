@@ -13,6 +13,7 @@ TEST_DB = 'test.db'
 from test_tasks import TasksTests
 from test_users import UsersTests
 from test_main import MainTests
+from test_api import APITests
 
 
 unittest.main()
