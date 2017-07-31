@@ -15,7 +15,6 @@ bcrypt = Bcrypt(app)
 
 from Flask_taskr.users.views import users_blueprint
 from Flask_taskr.tasks.views import tasks_blueprint
-# from Flask_taskr.api.views import api
 from Flask_taskr.api.views import api_bp
 
 app.register_blueprint(users_blueprint)
