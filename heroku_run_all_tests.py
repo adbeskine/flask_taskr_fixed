@@ -9,6 +9,6 @@ TEST_DB = 'test.db'
 from tests.test_tasks import TasksTests
 from tests.test_users import UsersTests
 from tests.test_main import MainTests
-
+from tests.test_api import APITests
 
 unittest.main()
