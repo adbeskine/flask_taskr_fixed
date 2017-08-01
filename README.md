@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/adbeskine/flask_taskr_fixed.svg?branch=master)](https://travis-ci.org/adbeskine/flask_taskr_fixed)
