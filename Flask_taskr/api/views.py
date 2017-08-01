@@ -1,7 +1,8 @@
 from functools import wraps
 from flask import flash, redirect, jsonify, \
-    session, url_for, Blueprint, make_response
+    session, url_for, Blueprint, make_response, request
 from flask_restful import Api, Resource, abort, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 from Flask_taskr import db, app
 from Flask_taskr.models import Task
@@ -81,7 +82,25 @@ class api_list_individual_task(Resource):
             result = {"error": "Element does not exist"}
             code = 404
             return make_response(jsonify(result), code)
-	
+
+class api_delete_a_task(Resource):
+    def delete(self, task_id):
+        task = db.session.query(Task).filter_by(task_id=task_id)
+        task_name = deleted_task.name
+        task.delete()
+        return{'{} was deleted'.format(task_name)}
+
+class api_mark_complete_a_task(Resource):
+    def put(self, task_id):
+        task = db.session.query(Task).filter_by(task_id=task_id)
+        task.update({"status":"0"})
+        json_confirmation = {'marked complete': task.first().name}
+        db.session.commit()
+        code=200
+        return make_response(jsonify(json_confirmation, code))
+
+
+
 
 ################
  # api routes #
@@ -92,3 +111,5 @@ api = Api(api_bp)
 
 api.add_resource(api_list_all_tasks, '/api/v1/tasks')
 api.add_resource(api_list_individual_task, '/api/v1/tasks/<int:task_id>')
+api.add_resource(api_delete_a_task,'/api/v1/delete_task/<int:task_id>')
+api.add_resource(api_mark_complete_a_task,'/api/v1/mark_complete/<int:task_id>')

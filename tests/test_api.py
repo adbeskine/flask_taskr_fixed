@@ -93,6 +93,19 @@ class APITests(unittest.TestCase):
         self.assertEquals(response.mimetype, 'application/json')
         self.assertIn(b'Element does not exist', response.data)
 
+    def test_api_can_delete_tasks(self):
+        self.add_tasks()
+        response = self.app.delete('api/v1/delete_task/1')
+        self.assertEquals(response.status_code, 200)
+        self.assertNonIn(1, db.session.query(Task).filter_by(task_id=1).first())
+
+    def test_api_can_mark_complete_tasks(self):
+        self.add_tasks()
+        response = self.app.put('api/v1/mark_complete/1')
+        self.assertEquals(response.status_code, 200)
+        task = db.session.query(Task).filter_by(task_id=1).first()
+        self.assertTrue(task.status == 0)
+
 
 
 unittest.main()

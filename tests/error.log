@@ -7,3 +7,11 @@
 404 error at 31-07-2017 10:35:47: http://localhost/this-route-does-not-exist/
 404 error at 31-07-2017 10:38:44: http://localhost/this-route-does-not-exist/
 404 error at 31-07-2017 11:16:51: http://localhost/this-route-does-not-exist/
+404 error at 01-08-2017 08:52:10: http://localhost/api/v1/tasks/
+404 error at 01-08-2017 08:52:38: http://localhost/api/v1/mark_complete/1
+404 error at 01-08-2017 08:52:38: http://localhost/api/v1/tasks/
+404 error at 01-08-2017 08:55:05: http://localhost/api/v1/mark_complete/1
+404 error at 01-08-2017 08:55:06: http://localhost/api/v1/tasks/
+404 error at 01-08-2017 09:52:12: http://localhost/api/v1/tasks/
+404 error at 01-08-2017 09:56:06: http://localhost/api/v1/tasks/
+404 error at 01-08-2017 09:56:19: http://localhost/api/v1/tasks/
