@@ -13,4 +13,6 @@ deploy:
     secure: i9dd0uMEYszSIznvTP51Om3vghYCqtTks96HL7Aw/Hyg70k5wteiLKLXlTl+e5WLgCK0NFDwELHATHc2fRAV8OJ4GXDorezeKsqLxnK1CcFewXp6wSxMZktAXkx3nBpaiQd0S2aj/u6MYug6umXZSeXypcrDKRMvmlaKi5UDBr1LFkJfsuO2zAV9wbghxzldwFuXF/mGk0dgtwp+MQrYO0JIOCZX/BOIGKgf4qO+a/FTa84zIfpUMkNah+9SINV/KT2OMgbdTl5Gmn91StHhA6oaz79QVVeGZtlWAHCoK9XFc8SC02+J6k/6ciwXcz7odPVSDeO3/St+TiFF5NHgMs89+zpnQUyH1TB+gYolcucunhx3Br+i+oaAB1wD6aS26luHw7E9UdZQQ66Z9VoOr+0+ZOrMOkIj9hKDvlM4SF3knXgXHjmFDQM1rd8TnXNLEpj5Y5dZqcs44ckm0s9SoHDCZIT0T1pTjHJT2S12fqCIXCH874WGTIRWJsc7jcc402loniss0aq1purqCXQp0DDS9Glau+FfvOVD+Q3F6sJAhZcbwmdFO/n0hciptf3mel4q4i6t1+Mqo33od2q80pxnFBPFs6wjXDCIaDYaz8aEZ50apuGR2sDIiHx0p7FCnzVTNQCxwA4GzJr56Tbps2Zj18FYdJoMBBo2+HGC0Q0=
   app: fast-beyond-43808
   on:
+    branch: master
+    python: 3.5
     repo: adbeskine/flask_taskr_fixed
