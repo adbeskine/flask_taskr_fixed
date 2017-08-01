@@ -1,13 +1,16 @@
-# specify language
 language:
 - python
-# specify python version(s)
 python:
-- "3.5"
-- "2.7"
-# install dependencies
+- '3.5'
+- '2.7'
 install:
 - pip install -r requirements.txt
-# run tests
 script:
 - nosetests
+deploy:
+  provider: heroku
+  api_key:
+    secure: i5ygSiPoVGbb3msAf/qTxhIKVe9D9sJko3GEtKqXGbz8/G60sMb99TZBG9vQglbIOZtWSeiX++h+a1F+Q08dNMXSoXBju+jICYKSLTBFK00kL3JJLYg8nW/qtpUNNfDLu99Cy0TpkjILhtA0eenN/DOWCTEJuralQ/zgFvgvKvvC2Fisygnd0mGHLY8qTvc9YIjBWevgicfZprFmi5MfHU+Fp0z4DcLnbGZOG5icuD8btBBG8ws8QCWVeXii9Tm5kRiGlx41zz9/3fFtyr/LcmzbmTdnoZxqAPhTIw7NgdMf5DrqJIXywTml2GOtlghYaU+hyVQ9xkYjCpHTSdAddTbqO4PbARA5qdEZbS9etOS3kh/GW3mOMzw9fLyVI4SJA6U7US4lVZd2aSHvtkRfcddkN0B8CeR5RiN6qkiaaAdVXkGW+hs/a5Bs3x6bBFCe5jjojwNuLgVLIOpbw/2hUAiXLQWR5cLI+q1jeMadTjDBDVkzNU5mx0nEg4yGm2283kgAzUgvgJgk2fHfkizTTGtdxO6m0XHQ1Kbcaxil5isP9blKmJBPl72TsKz1RfMoK5JVqn4NBPlz31u7rbVYPFd/zOn9NjYmN/PoeMr14xElkdNK5esTbxp3CxH3Nmbt5EKfKXgteaxZVvW42u4x1B75bdxSIFeBRJsGDkMEknE=
+  app: fast-beyond-43808
+  on:
+    repo: adbeskine/flask_taskr_fixed
