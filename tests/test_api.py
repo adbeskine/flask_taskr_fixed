@@ -9,6 +9,7 @@ sys.path.append(os.path.dirname(__file__)+'../..')
 from Flask_taskr import app, db
 from Flask_taskr._config import basedir
 from Flask_taskr.models import Task
+from sqlalchemy.sql import exists
 
 
 TEST_DB = 'test.db'
@@ -72,7 +73,7 @@ class APITests(unittest.TestCase):
 
     def test_collection_endpoint_returns_correct_data(self):
         self.add_tasks()
-        response = self.app.get('api/v1/tasks/', follow_redirects=True)
+        response = self.app.get('api/v1/tasks', follow_redirects=True)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.mimetype, 'application/json')
         self.assertIn(b'Run around in circles', response.data)
@@ -97,14 +98,18 @@ class APITests(unittest.TestCase):
         self.add_tasks()
         response = self.app.delete('api/v1/delete_task/1')
         self.assertEquals(response.status_code, 200)
-        self.assertNonIn(1, db.session.query(Task).filter_by(task_id=1).first())
+        self.assertNotIn(1, db.session.query(Task).filter_by(task_id=1))
+        self.assertTrue(db.session.query(exists().where(Task.task_id==2)).scalar())
 
     def test_api_can_mark_complete_tasks(self):
         self.add_tasks()
         response = self.app.put('api/v1/mark_complete/1')
         self.assertEquals(response.status_code, 200)
-        task = db.session.query(Task).filter_by(task_id=1).first()
-        self.assertTrue(task.status == 0)
+        completed_task = db.session.query(Task).filter_by(task_id=1).first()
+        self.assertTrue(completed_task.status == 0)
+        untouched_task = db.session.query(Task).filter_by(task_id=2).first()
+        self.assertTrue(untouched_task.status==1)
+        self.assertEquals(response.mimetype, 'application/json')
 
 
 

@@ -42,7 +42,6 @@ def closed_tasks():
  # api classes #
 ################
 
-# @api_blueprint.route('/api/v1/tasks/')
 
 class api_list_all_tasks(Resource):
     def get(self):
@@ -59,9 +58,9 @@ class api_list_all_tasks(Resource):
                 'user id': result.user_id
                 }
             json_results.append(data)
-        return jsonify(items=json_results)
+            code = 200
+        return make_response(jsonify(items=json_results), code)
 
-# @api_blueprint.route('/api/v1/tasks/<int:task_id>')
 
 class api_list_individual_task(Resource):
     def get(self, task_id):
@@ -86,9 +85,12 @@ class api_list_individual_task(Resource):
 class api_delete_a_task(Resource):
     def delete(self, task_id):
         task = db.session.query(Task).filter_by(task_id=task_id)
-        task_name = deleted_task.name
+        task_name = task.first().name
         task.delete()
-        return{'{} was deleted'.format(task_name)}
+        db.session.commit()
+        json_confirmation = {'deleted': task_name}
+        code = 200
+        return make_response(jsonify(json_confirmation), code)
 
 class api_mark_complete_a_task(Resource):
     def put(self, task_id):
@@ -97,7 +99,7 @@ class api_mark_complete_a_task(Resource):
         json_confirmation = {'marked complete': task.first().name}
         db.session.commit()
         code=200
-        return make_response(jsonify(json_confirmation, code))
+        return make_response(jsonify(json_confirmation), code)
 
 
 
