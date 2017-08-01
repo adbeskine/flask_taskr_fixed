@@ -1,6 +1,7 @@
 import sys
 import subprocess
 import pdb
+import webbrowser
 
 #######################
 ####HELPER METHODS ####
@@ -37,6 +38,7 @@ def help():
 	print("-pad : pull_and_deploy, as above but pulls any changes made on the git remote server first")
 	print("-hr : heroku_rollback")
 	print("-ht : heroku_tests, this runs the 'heroku_run_all_tests.py' file on the heroku server")
+	print("-gcp: this commits all the code and pushes it to master branch, then redirects to the CI service")
 # ---------------------------------------------------------------- #
 # ---------------------------------------------------------------- #
 # ---------------------------------------------------------------- #
@@ -55,6 +57,19 @@ def quick_deploy(): #-qd
 	print("changes deployed to heroku\n\n")
 	print("******************")
 
+def git_commit_and_push(): #-gcp
+	commit()
+	print("******************\n\n")
+	print("changes have been commited\n\n")
+	print("******************")
+	push_git()
+	print("******************\n\n")
+	print("changes pushed to git and going through travis CI\n\n")
+	print("******************")
+	webbrowser.open('https://travis-ci.org/adbeskine/flask_taskr_fixed', new=2)
+
+
+
 def pull_and_deploy(): #-pad
 	pull()
 	quick_deploy()
@@ -71,14 +86,14 @@ def heroku_tests(): #-ht
 ####func args####
 #################
 
-func_args = {"-c":commit, "-g":push_git, "-h":push_heroku, "-help":help, "-qd": quick_deploy, "-pad":pull_and_deploy, "-hr":heroku_rollback, "-ht":heroku_tests}#
+func_args = {"-c":commit, "-g":push_git, "-h":push_heroku, "-help":help, "-qd": quick_deploy, "-pad":pull_and_deploy, "-hr":heroku_rollback, "-ht":heroku_tests, "-gcp":git_commit_and_push}#
 
 
 
 if __name__ == "__main__":
 
-	# if len(sys.argv) == 2:
-		# func_args[sys.argv[1]]()
-	# else:
+	if len(sys.argv) == 1:
+		print("this program is intended to run with commands, run -help for more information")
+	else:
 		func_args[sys.argv[1]]()
 
